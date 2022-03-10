@@ -1,0 +1,19 @@
+[
+    {
+        "modid": "${id}",
+        "name": "${name}",
+        "description": "Keystrokes but with alpha and fading. (Drop shadow added by senoe, revamp by scherso)",
+        "version": "${version}",
+        "mcversion": "${mcversion}",
+        "url": "www.youtube.com/canelex",
+        "updateUrl": "",
+        "authorList": [
+            "canelex", "senoe", "scherso"
+        ],
+        "credits": "",
+        "logoFile": "",
+        "screenshots": [],
+        "dependencies": [
+        ]
+    }
+]
