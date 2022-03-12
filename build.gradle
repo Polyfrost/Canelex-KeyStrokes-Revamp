@@ -13,21 +13,20 @@ buildscript {
         classpath "com.github.asbyth:ForgeGradle:6f53277"
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: "net.minecraftforge.gradle.forge"
 
 version = projectVersion
 group = projectGroup
 archivesBaseName = projectName
 
-sourceCompatibility = targetCompatibility = 1.8
-compileJava.options.encoding = 'UTF-8'
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_8
+tasks.withType(JavaCompile) { options.encoding = "UTF-8" }
 
 minecraft {
     version = "1.8.9-11.15.1.2318-1.8.9"
     runDir = "run"
     mappings = "stable_22"
     makeObfSourceJar = false
-    // property references...
     replace('@NAME@', projectName)
     replace('@VER@': projectVersion)
     replace('@ID@', projectId)

@@ -1,17 +1,19 @@
-package net.canelex.keystrokes.draggable;
+package dev.salmon.keystrokes.gui.element;
 
-import net.canelex.keystrokes.KeystrokesMod;
+import dev.salmon.keystrokes.Keystrokes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
-public class DragFPS extends DragGui {
+public class FPSElement extends DragElement {
+
     public boolean enabled;
 
-    public DragFPS(KeystrokesMod mod, int x, int y, float scale) {
-        super(mod, x, y, scale);
+    public FPSElement(int x, int y, float scale) {
+        super(x, y, scale);
         this.enabled = true;
     }
 
@@ -19,13 +21,13 @@ public class DragFPS extends DragGui {
         if (!this.enabled)
             return;
         if (this.scale != 0.0F) {
-            FontRenderer fr = this.mc.fontRendererObj;
-            String sToDraw = this.mc.debug.split(" ")[0] + " FPS";
-            Gui.drawRect(this.posX, this.posY, this.posX + getWidth(), this.posY + getHeight(), this.mod.bgUnpressed.getValue());
+            FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
+            String sToDraw = Minecraft.getMinecraft().debug.split(" ")[0] + " FPS";
+            Gui.drawRect(this.posX, this.posY, this.posX + getWidth(), this.posY + getHeight(), Keystrokes.Instance.bgUnpressed.getValue());
             int mx = this.posX + (getWidth() - fr.getStringWidth(sToDraw)) / 2;
             int my = this.posY + (getHeight() - fr.FONT_HEIGHT) / 2 + 1;
             GL11.glEnable(3042);
-            fr.drawString(sToDraw, mx, my, getColorText(), this.mod.shadow.isTrue());
+            fr.drawString(sToDraw, mx, my, getColorText(), Keystrokes.Instance.shadow.getValue());
             GL11.glDisable(3042);
         }
     }
@@ -35,13 +37,13 @@ public class DragFPS extends DragGui {
     }
 
     public int getHeight() {
-        return 14;
+        return 19;
     }
 
     private int getColorText() {
-        if (this.mod.chroma.getValue())
+        if (Keystrokes.Instance.chroma.isTrue())
             return Color.HSBtoRGB((float) (System.currentTimeMillis() % 3000L) / 3000.0F, 0.8F, 1.0F);
-        return this.mod.textUnpressed.getValue();
+        return Keystrokes.Instance.textUnpressed.getValue();
     }
 
     public boolean isEnabled() {
@@ -51,4 +53,5 @@ public class DragFPS extends DragGui {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
 }

@@ -1,11 +1,12 @@
-package net.canelex.keystrokes.draggable.keystrokes;
+package dev.salmon.keystrokes.gui.element.keystrokes;
 
-import net.canelex.keystrokes.KeystrokesMod;
+import dev.salmon.keystrokes.Keystrokes;
 import net.minecraft.client.settings.KeyBinding;
 
 public class GuiKeySpace extends GuiKey {
-    public GuiKeySpace(KeystrokesMod mod, int x, int y, int width, int height, KeyBinding keyBinding) {
-        super(mod, x, y, width, height, keyBinding);
+
+    public GuiKeySpace(int x, int y, int width, int height, KeyBinding keyBinding) {
+        super(x, y, width, height, keyBinding);
     }
 
     public void drawKey(int x, int y) {
@@ -14,11 +15,12 @@ public class GuiKeySpace extends GuiKey {
         drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
         int color = getTextColor();
         drawHorizontalLine(x + this.width / 2 - 6, x + this.width / 2 + 6, y + this.height / 2 - 1, color);
-        if (this.mod.shadow.isTrue()) {
+        if (Keystrokes.Instance.shadow.isTrue()) {
             if ((color & 0xFC000000) == 0)
                 color |= 0xFF000000;
             color = (color & 0xFCFCFC) >> 2 | color & 0xFF000000;
             drawHorizontalLine(x + this.width / 2 - 5, x + this.width / 2 + 7, y + this.height / 2, color);
         }
     }
+
 }

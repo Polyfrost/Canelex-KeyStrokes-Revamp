@@ -1,7 +1,7 @@
-package net.canelex.keystrokes.command;
+package dev.salmon.keystrokes.command;
 
-import net.canelex.keystrokes.KeystrokesMod;
-import net.canelex.keystrokes.gui.GuiEditKeystrokes;
+import dev.salmon.keystrokes.Keystrokes;
+import dev.salmon.keystrokes.gui.ConfigGUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -9,19 +9,14 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-public class CommandEditStrokes extends CommandBase {
-    private final KeystrokesMod mod;
-
-    public CommandEditStrokes(KeystrokesMod mod) {
-        this.mod = mod;
-    }
+public class KeystrokesCommand extends CommandBase {
 
     public String getCommandName() {
-        return KeystrokesMod.ID;
+        return Keystrokes.ID;
     }
 
     public String getCommandUsage(ICommandSender sender) {
-        return "/" + KeystrokesMod.ID;
+        return "/" + Keystrokes.ID;
     }
 
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
@@ -35,6 +30,7 @@ public class CommandEditStrokes extends CommandBase {
     @SubscribeEvent
     public void onTick(TickEvent.ClientTickEvent event) {
         MinecraftForge.EVENT_BUS.unregister(this);
-        Minecraft.getMinecraft().displayGuiScreen(new GuiEditKeystrokes(this.mod));
+        Minecraft.getMinecraft().displayGuiScreen(new ConfigGUI());
     }
+
 }

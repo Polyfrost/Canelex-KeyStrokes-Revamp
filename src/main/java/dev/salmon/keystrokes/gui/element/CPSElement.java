@@ -1,6 +1,7 @@
-package net.canelex.keystrokes.draggable;
+package dev.salmon.keystrokes.gui.element;
 
-import net.canelex.keystrokes.KeystrokesMod;
+import dev.salmon.keystrokes.Keystrokes;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,16 +14,13 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DragCPS extends DragGui {
-    private final List<Long> right;
-    private final List<Long> left;
-    private boolean rightPressed;
-    private boolean leftPressed;
+public class CPSElement extends DragElement {
 
-    private boolean enabled;
+    private final List<Long> left, right;
+    private boolean leftPressed, rightPressed, enabled;
 
-    public DragCPS(KeystrokesMod mod, int x, int y, float scale) {
-        super(mod, x, y, scale);
+    public CPSElement(int x, int y, float scale) {
+        super(x, y, scale);
         this.right = new ArrayList<>();
         this.left = new ArrayList<>();
         this.enabled = true;
@@ -30,16 +28,21 @@ public class DragCPS extends DragGui {
     }
 
     public void drawUI() {
-        if (!this.enabled)
-            return;
-        if (this.scale != 0.0F) {
-            FontRenderer fr = this.mc.fontRendererObj;
-            String sToDraw = this.left.size() + " | " + this.right.size() + " CPS";
-            Gui.drawRect(this.posX, this.posY, this.posX + getWidth(), this.posY + getHeight(), this.mod.bgUnpressed.getValue());
+        if (!this.enabled) return;
+        String title;
+        if (Keystrokes.Instance.cpsTitle.getValue()) {
+            title = " CPS";
+        } else {
+            title = "";
+        }
+        if (Keystrokes.Instance.scale.getValue() != 0.0f) {
+            FontRenderer fr = Minecraft.getMinecraft().fontRendererObj;
+            String sToDraw = this.left.size() + " | " + this.right.size() + title;
+            Gui.drawRect(this.posX, this.posY, this.posX + getWidth(), this.posY + getHeight(), Keystrokes.Instance.bgUnpressed.getValue());
             int mx = this.posX + (getWidth() - fr.getStringWidth(sToDraw)) / 2;
             int my = this.posY + (getHeight() - fr.FONT_HEIGHT) / 2 + 1;
             GL11.glEnable(3042);
-            fr.drawString(sToDraw, mx, my, getColorText(), this.mod.shadow.isTrue());
+            fr.drawString(sToDraw, mx, my, getColorText(), Keystrokes.Instance.shadow.getValue());
             GL11.glDisable(3042);
         }
     }
@@ -69,13 +72,13 @@ public class DragCPS extends DragGui {
     }
 
     public int getHeight() {
-        return 14;
+        return 19;
     }
 
     private int getColorText() {
-        if (this.mod.chroma.getValue())
+        if (Keystrokes.Instance.chroma.getValue())
             return Color.HSBtoRGB((float) (System.currentTimeMillis() % 3000L) / 3000.0F, 0.8F, 1.0F);
-        return this.mod.textUnpressed.getValue();
+        return Keystrokes.Instance.textUnpressed.getValue();
     }
 
     public boolean isEnabled() {
@@ -85,4 +88,5 @@ public class DragCPS extends DragGui {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
 }
