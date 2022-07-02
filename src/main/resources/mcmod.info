@@ -2,13 +2,13 @@
     {
         "modid": "${id}",
         "name": "${name}",
-        "description": "Keystrokes but with alpha and fading. (Drop shadow added by senoe, revamp by scherso)",
+        "description": "Keystrokes.",
         "version": "${version}",
-        "mcversion": "${mcversion}",
+        "mcversion": "${mcVersionStr}",
         "url": "www.youtube.com/canelex",
         "updateUrl": "",
         "authorList": [
-            "canelex", "salmon"
+            "canelex", "Salmon", "Polyfrost"
         ],
         "credits": "",
         "logoFile": "",

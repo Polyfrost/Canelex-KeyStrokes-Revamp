@@ -1,11 +1,12 @@
-package dev.salmon.keystrokes.gui.element.keystrokes;
+package dev.salmon.keystrokes.hud;
 
-import dev.salmon.keystrokes.Keystrokes;
-import dev.salmon.keystrokes.gui.ColorConfigGui;
-import dev.salmon.keystrokes.gui.ConfigGUI;
+import cc.polyfrost.oneconfig.gui.OneConfigGui;
+import cc.polyfrost.oneconfig.platform.Platform;
+import dev.salmon.keystrokes.config.KeystrokesConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -17,13 +18,13 @@ public class GuiKey extends Gui {
 
     protected final FontRenderer fr;
 
-    protected int relX, relY, width, height;
+    protected float relX, relY, width, height;
     protected KeyBinding keyBinding;
     protected boolean isPressed;
     protected float percentFaded;
     private long lastPress;
 
-    public GuiKey(int x, int y, int width, int height, KeyBinding keyBinding) {
+    public GuiKey(float x, float y, float width, float height, KeyBinding keyBinding) {
         this.fr = Minecraft.getMinecraft().fontRendererObj;
         this.relX = x;
         this.relY = y;
@@ -34,32 +35,33 @@ public class GuiKey extends Gui {
         this.lastPress = System.currentTimeMillis();
     }
 
-    public void drawKey(int x, int y) {
+    public void drawKey(float x, float y, float scale) {
         x += this.relX;
         y += this.relY;
-        drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
+        Platform.getGLPlatform().drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
         x += (this.width - this.fr.getStringWidth(getKeyName())) / 2;
         y += (this.height - this.fr.FONT_HEIGHT) / 2 + 1;
-        GL11.glEnable(3042);
-        this.fr.drawString(getKeyName(), (x + 1), y, getTextColor(), Keystrokes.Instance.shadow.isTrue());
-        GL11.glDisable(3042);
+
+        GlStateManager.enableBlend();
+        this.fr.drawString(getKeyName(), (x + 1), y, getTextColor(), KeystrokesConfig.keystrokesElement.shadow);
+        GlStateManager.disableBlend();
     }
 
     protected int getBackgroundColor() {
-        int thisColor = this.isPressed ? Keystrokes.Instance.bgPressed.getValue() : Keystrokes.Instance.bgUnpressed.getValue();
+        int thisColor = (this.isPressed ? KeystrokesConfig.keystrokesElement.bgPressed : KeystrokesConfig.keystrokesElement.bgUnpressed).getRGB();
         if (this.percentFaded < 1.0F) {
-            int lastColor = this.isPressed ? Keystrokes.Instance.bgUnpressed.getValue() : Keystrokes.Instance.bgPressed.getValue();
+            int lastColor = (this.isPressed ? KeystrokesConfig.keystrokesElement.bgUnpressed : KeystrokesConfig.keystrokesElement.bgPressed).getRGB();
             return getIntermediateColor(thisColor, lastColor, this.percentFaded);
         }
         return thisColor;
     }
 
     protected int getTextColor() {
-        if (Keystrokes.Instance.chroma.getValue())
+        if (KeystrokesConfig.keystrokesElement.chroma)
             return Color.HSBtoRGB((float) (System.currentTimeMillis() % 3000L) / 3000.0F, 0.8F, 1.0F);
-        int thisColor = this.isPressed ? Keystrokes.Instance.textPressed.getValue() : Keystrokes.Instance.textUnpressed.getValue();
+        int thisColor = (this.isPressed ? KeystrokesConfig.keystrokesElement.textPressed : KeystrokesConfig.keystrokesElement.textUnpressed).getRGB();
         if (this.percentFaded < 1.0F) {
-            int lastColor = this.isPressed ? Keystrokes.Instance.textUnpressed.getValue() : Keystrokes.Instance.textPressed.getValue();
+            int lastColor = (this.isPressed ? KeystrokesConfig.keystrokesElement.textUnpressed : KeystrokesConfig.keystrokesElement.textPressed).getRGB();
             return getIntermediateColor(thisColor, lastColor, this.percentFaded);
         }
         return thisColor;
@@ -101,10 +103,7 @@ public class GuiKey extends Gui {
     }
 
     public void updateKeyState() {
-        if (Minecraft.getMinecraft().currentScreen instanceof ColorConfigGui) {
-            this.isPressed = ((ColorConfigGui) Minecraft.getMinecraft().currentScreen).showPressed;
-            this.percentFaded = 1.0F;
-        } else if (Minecraft.getMinecraft().currentScreen instanceof ConfigGUI) {
+        if (Minecraft.getMinecraft().currentScreen instanceof OneConfigGui) {
             if (((System.currentTimeMillis() % 1000L > 500L)) != this.isPressed) {
                 this.isPressed = !this.isPressed;
                 this.percentFaded = 0.5F;
@@ -114,7 +113,7 @@ public class GuiKey extends Gui {
             this.isPressed = !this.isPressed;
             this.lastPress = System.currentTimeMillis();
         }
-        this.percentFaded = (float) (System.currentTimeMillis() - this.lastPress) / Keystrokes.Instance.fadingTime.getValue();
+        this.percentFaded = (float) (System.currentTimeMillis() - this.lastPress) / KeystrokesConfig.keystrokesElement.fadingTime;
         if (this.percentFaded > 1.0F)
             this.percentFaded = 1.0F;
     }
