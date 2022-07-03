@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -68,6 +67,16 @@ public class GuiKey extends Gui {
     }
 
     private String getKeyName() {
+        if (KeystrokesConfig.keystrokesElement.arrows) {
+            if (keyBinding == Minecraft.getMinecraft().gameSettings.keyBindForward)
+                return "▲";
+            if (keyBinding == Minecraft.getMinecraft().gameSettings.keyBindBack)
+                return "▼";
+            if (keyBinding == Minecraft.getMinecraft().gameSettings.keyBindLeft)
+                return "◀";
+            if (keyBinding == Minecraft.getMinecraft().gameSettings.keyBindRight)
+                return "▶";
+        }
         int code = this.keyBinding.getKeyCode();
         switch (code) {
             case -100:

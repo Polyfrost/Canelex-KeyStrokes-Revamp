@@ -24,6 +24,11 @@ public class KeystrokesElement extends Hud {
     )
     public boolean jumpKeystrokes = false;
 
+    @Switch(
+            name = "Arrow Keystrokes"
+    )
+    public boolean arrows = false;
+
     @Color(
             name = "Unpressed Background Color"
     )
