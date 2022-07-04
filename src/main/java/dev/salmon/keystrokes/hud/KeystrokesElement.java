@@ -84,7 +84,7 @@ public class KeystrokesElement extends Hud {
         if (!showInGuis && Platform.getGuiPlatform().getCurrentScreen() != null && !(Platform.getGuiPlatform().getCurrentScreen() instanceof OneConfigGui)) return;
         if (!showInChat && Platform.getGuiPlatform().isInChat()) return;
         if (!showInDebug && Platform.getGuiPlatform().isInDebug()) return;
-        if (this.scale != 0.0F && enabled && Keystrokes.INSTANCE.config.enabled) {
+        if (this.scale != 0.0F && isEnabled() && Keystrokes.INSTANCE.config.enabled) {
             UGraphics.GL.pushMatrix();
             UGraphics.GL.translate(-x * (scale - 1.0F), -y * (scale - 1.0F), 0.0F);
             UGraphics.GL.scale(scale, scale, 1.0F);
