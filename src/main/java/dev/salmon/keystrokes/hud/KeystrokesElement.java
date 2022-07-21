@@ -4,12 +4,9 @@ import cc.polyfrost.oneconfig.config.annotations.Color;
 import cc.polyfrost.oneconfig.config.annotations.Slider;
 import cc.polyfrost.oneconfig.config.annotations.Switch;
 import cc.polyfrost.oneconfig.config.core.OneColor;
-import cc.polyfrost.oneconfig.gui.OneConfigGui;
 import cc.polyfrost.oneconfig.hud.Hud;
 import cc.polyfrost.oneconfig.libs.universal.UGraphics;
 import cc.polyfrost.oneconfig.libs.universal.UMatrixStack;
-import cc.polyfrost.oneconfig.platform.Platform;
-import dev.salmon.keystrokes.Keystrokes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 
