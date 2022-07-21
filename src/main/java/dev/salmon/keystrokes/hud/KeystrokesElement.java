@@ -81,7 +81,7 @@ public class KeystrokesElement extends Hud {
 
     @Override
     protected void draw(UMatrixStack matrices, float x, float y, float scale, boolean example) {
-        if (this.scale != 0.0F && isEnabled() && Keystrokes.INSTANCE.config.enabled) {
+        if (this.scale != 0.0F) {
             UGraphics.GL.pushMatrix();
             UGraphics.GL.translate(-x * (scale - 1.0F), -y * (scale - 1.0F), 0.0F);
             UGraphics.GL.scale(scale, scale, 1.0F);
