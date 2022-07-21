@@ -80,15 +80,7 @@ public class KeystrokesElement extends Hud {
     }
 
     @Override
-    public void drawAll(UMatrixStack matrices, boolean example) {
-
-    }
-
-    @Override
     protected void draw(UMatrixStack matrices, float x, float y, float scale, boolean example) {
-        if (!showInGuis && Platform.getGuiPlatform().getCurrentScreen() != null && !(Platform.getGuiPlatform().getCurrentScreen() instanceof OneConfigGui)) return;
-        if (!showInChat && Platform.getGuiPlatform().isInChat()) return;
-        if (!showInDebug && Platform.getGuiPlatform().isInDebug()) return;
         if (this.scale != 0.0F && isEnabled() && Keystrokes.INSTANCE.config.enabled) {
             UGraphics.GL.pushMatrix();
             UGraphics.GL.translate(-x * (scale - 1.0F), -y * (scale - 1.0F), 0.0F);
@@ -118,7 +110,7 @@ public class KeystrokesElement extends Hud {
 
     @Override
     public float getWidth(float scale, boolean example) {
-        return (int) (59 * scale);
+        return (59 * scale);
     }
 
     @Override
@@ -128,6 +120,6 @@ public class KeystrokesElement extends Hud {
             height += 20;
         if (jumpKeystrokes)
             height += 12;
-        return (int) (height * scale);
+        return (height * scale);
     }
 }

@@ -2,6 +2,7 @@ package dev.salmon.keystrokes.hud;
 
 import cc.polyfrost.oneconfig.gui.OneConfigGui;
 import cc.polyfrost.oneconfig.platform.Platform;
+import cc.polyfrost.oneconfig.utils.color.ColorUtils;
 import dev.salmon.keystrokes.config.KeystrokesConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -138,7 +139,7 @@ public class GuiKey extends Gui {
         float avgGreen = (a >> 8 & 0xFF) * percent + (b >> 8 & 0xFF) * (1.0F - percent);
         float avgBlue = (a & 0xFF) * percent + (b & 0xFF) * (1.0F - percent);
         float avgAlpha = (a >> 24 & 0xFF) * percent + (b >> 24 & 0xFF) * (1.0F - percent);
-        return (new Color(avgRed / 255.0F, avgGreen / 255.0F, avgBlue / 255.0F, avgAlpha / 255.0F)).getRGB();
+        return ColorUtils.getColor(avgRed / 255.0F, avgGreen / 255.0F, avgBlue / 255.0F, avgAlpha / 255.0F);
     }
 
 }
