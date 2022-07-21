@@ -68,7 +68,7 @@ public class KeystrokesElement extends Hud {
     transient private final GuiKey jumpKey;
 
     public KeystrokesElement() {
-        super(true, 0, 0, 1, false, 2, 0, 0, new OneColor(0, 0, 0, 120), false, 2, new OneColor(0, 0, 0));
+        super(true, 0, 0, 1);
         GameSettings gs = Minecraft.getMinecraft().gameSettings;
         (this.movementKeys = new GuiKey[4])[0] = new GuiKey(20, 0, 19, 19, gs.keyBindForward);
         this.movementKeys[1] = new GuiKey(0, 20, 19, 19, gs.keyBindLeft);
@@ -80,7 +80,12 @@ public class KeystrokesElement extends Hud {
     }
 
     @Override
-    public void drawAll(UMatrixStack matrices, float x, float y, float scale, boolean background) {
+    public void drawAll(UMatrixStack matrices, boolean example) {
+
+    }
+
+    @Override
+    protected void draw(UMatrixStack matrices, float x, float y, float scale, boolean example) {
         if (!showInGuis && Platform.getGuiPlatform().getCurrentScreen() != null && !(Platform.getGuiPlatform().getCurrentScreen() instanceof OneConfigGui)) return;
         if (!showInChat && Platform.getGuiPlatform().isInChat()) return;
         if (!showInDebug && Platform.getGuiPlatform().isInDebug()) return;
@@ -112,22 +117,12 @@ public class KeystrokesElement extends Hud {
     }
 
     @Override
-    public void drawExampleAll(UMatrixStack matrices, float x, float y, float scale, boolean background) {
-        drawAll(matrices, x, y, scale, background);
-    }
-
-    @Override
-    public void draw(UMatrixStack matrices, int x, int y, float scale) {
-        // no-op, not used
-    }
-
-    @Override
-    public int getWidth(float scale) {
+    public float getWidth(float scale, boolean example) {
         return (int) (59 * scale);
     }
 
     @Override
-    public int getHeight(float scale) {
+    public float getHeight(float scale, boolean example) {
         int height = 40;
         if (mouseKeystrokes)
             height += 20;
