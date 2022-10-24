@@ -7,7 +7,7 @@ import dev.salmon.keystrokes.Keystrokes;
 @Command(Keystrokes.ID)
 public class KeystrokesCommand {
     @Main
-    private static void main() {
+    private void main() {
         Keystrokes.INSTANCE.config.openGui();
     }
 }

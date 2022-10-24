@@ -18,7 +18,7 @@ public class Keystrokes {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        CommandManager.INSTANCE.registerCommand(KeystrokesCommand.class);
+        CommandManager.INSTANCE.registerCommand(new KeystrokesCommand());
         config = new KeystrokesConfig();
     }
 
