@@ -15,7 +15,7 @@ public class KeystrokesConfig extends Config {
     public static KeystrokesElement keystrokesElement = new KeystrokesElement();
 
     public KeystrokesConfig() {
-        super(new Mod(Keystrokes.NAME, ModType.HUD), "keystrokes.json");
+        super(new Mod(Keystrokes.NAME, ModType.HUD, "/keystrokesrevamp_dark.svg"), "keystrokes.json");
         initialize();
     }
 }
