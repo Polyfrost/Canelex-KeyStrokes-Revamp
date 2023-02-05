@@ -51,11 +51,6 @@ public class KeystrokesElement extends Hud {
     public int fadingTime = 100;
 
     @Switch(
-            name = "Chroma"
-    )
-    public boolean chroma = false;
-
-    @Switch(
             name = "Shadow"
     )
     public boolean shadow = false;

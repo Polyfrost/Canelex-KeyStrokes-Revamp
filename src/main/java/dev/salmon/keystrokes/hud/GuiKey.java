@@ -12,8 +12,6 @@ import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import java.awt.*;
-
 public class GuiKey extends Gui {
 
     protected final FontRenderer fr;
@@ -57,8 +55,6 @@ public class GuiKey extends Gui {
     }
 
     protected int getTextColor() {
-        if (KeystrokesConfig.keystrokesElement.chroma)
-            return Color.HSBtoRGB((float) (System.currentTimeMillis() % 3000L) / 3000.0F, 0.8F, 1.0F);
         int thisColor = (this.isPressed ? KeystrokesConfig.keystrokesElement.textPressed : KeystrokesConfig.keystrokesElement.textUnpressed).getRGB();
         if (this.percentFaded < 1.0F) {
             int lastColor = (this.isPressed ? KeystrokesConfig.keystrokesElement.textUnpressed : KeystrokesConfig.keystrokesElement.textPressed).getRGB();
