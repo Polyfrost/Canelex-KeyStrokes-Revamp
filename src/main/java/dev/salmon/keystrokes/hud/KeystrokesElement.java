@@ -55,6 +55,18 @@ public class KeystrokesElement extends Hud {
     )
     public boolean shadow = false;
 
+    @Switch(
+            name = "Rounded Corners"
+    )
+    public boolean rounded;
+
+    @Slider(
+            name = "Corner radius",
+            min = 0f,
+            max = 10f
+    )
+    public int cornerRadius = 2;
+
     transient private final GuiKey[] movementKeys;
     transient private final GuiKey[] mouseKeys;
     transient private final GuiKey jumpKey;

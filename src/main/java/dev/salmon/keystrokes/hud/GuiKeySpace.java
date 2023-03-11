@@ -1,6 +1,7 @@
 package dev.salmon.keystrokes.hud;
 
 import cc.polyfrost.oneconfig.platform.Platform;
+import cc.polyfrost.oneconfig.renderer.NanoVGHelper;
 import dev.salmon.keystrokes.config.KeystrokesConfig;
 import net.minecraft.client.settings.KeyBinding;
 
@@ -13,7 +14,13 @@ public class GuiKeySpace extends GuiKey {
     public void drawKey(float x, float y, float scale) {
         x += this.relX;
         y += this.relY;
-        Platform.getGLPlatform().drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
+        if (KeystrokesConfig.keystrokesElement.rounded) {
+            float finalX = x;
+            float finalY = y;
+            NanoVGHelper.INSTANCE.setupAndDraw(true, vg -> NanoVGHelper.INSTANCE.drawRoundedRect(vg, finalX, finalY, width, height, getBackgroundColor(), KeystrokesConfig.keystrokesElement.cornerRadius));
+        } else {
+            Platform.getGLPlatform().drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
+        }
         int color = getTextColor();
         drawHorizontalLine(x + this.width / 2 - 6, x + this.width / 2 + 6, y + this.height / 2 - 1, color);
         if (KeystrokesConfig.keystrokesElement.shadow) {

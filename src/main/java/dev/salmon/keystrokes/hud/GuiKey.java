@@ -2,6 +2,7 @@ package dev.salmon.keystrokes.hud;
 
 import cc.polyfrost.oneconfig.gui.OneConfigGui;
 import cc.polyfrost.oneconfig.platform.Platform;
+import cc.polyfrost.oneconfig.renderer.NanoVGHelper;
 import cc.polyfrost.oneconfig.utils.color.ColorUtils;
 import dev.salmon.keystrokes.config.KeystrokesConfig;
 import net.minecraft.client.Minecraft;
@@ -36,7 +37,13 @@ public class GuiKey extends Gui {
     public void drawKey(float x, float y, float scale) {
         x += this.relX;
         y += this.relY;
-        Platform.getGLPlatform().drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
+        if (KeystrokesConfig.keystrokesElement.rounded) {
+            float finalX = x;
+            float finalY = y;
+            NanoVGHelper.INSTANCE.setupAndDraw(true, vg -> NanoVGHelper.INSTANCE.drawRoundedRect(vg, finalX, finalY, width, height, getBackgroundColor(), KeystrokesConfig.keystrokesElement.cornerRadius));
+        } else {
+            Platform.getGLPlatform().drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
+        }
         x += (this.width - this.fr.getStringWidth(getKeyName())) / 2;
         y += (this.height - this.fr.FONT_HEIGHT) / 2 + 1;
 
