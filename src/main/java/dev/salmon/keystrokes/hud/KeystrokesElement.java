@@ -68,7 +68,7 @@ public class KeystrokesElement extends Hud {
     public int cornerRadius = 2;
 
     transient private final GuiKey[] movementKeys;
-    transient private final GuiKey[] mouseKeys;
+    transient private final GuiKeyMouse[] mouseKeys;
     transient private final GuiKey jumpKey;
 
     public KeystrokesElement() {
@@ -78,8 +78,8 @@ public class KeystrokesElement extends Hud {
         this.movementKeys[1] = new GuiKey(0, 20, 19, 19, gs.keyBindLeft);
         this.movementKeys[2] = new GuiKey(20, 20, 19, 19, gs.keyBindBack);
         this.movementKeys[3] = new GuiKey(40, 20, 19, 19, gs.keyBindRight);
-        (this.mouseKeys = new GuiKey[2])[0] = new GuiKey(0, 40, 29, 19, gs.keyBindAttack); // left click
-        this.mouseKeys[1] = new GuiKey(30, 40, 29, 19, gs.keyBindUseItem); // right click
+        (this.mouseKeys = new GuiKeyMouse[2])[0] = new GuiKeyMouse(0, 40, 29, 19, gs.keyBindAttack); // left click
+        this.mouseKeys[1] = new GuiKeyMouse(30, 40, 29, 19, gs.keyBindUseItem); // right click
         this.jumpKey = new GuiKeySpace(0, 60, 59, 11, gs.keyBindJump); // space
     }
 
@@ -125,5 +125,11 @@ public class KeystrokesElement extends Hud {
         if (jumpKeystrokes)
             height += 12;
         return (height * scale);
+    }
+
+    public void pressed(int keycode) {
+        for (GuiKeyMouse mouseKey : mouseKeys) {
+            mouseKey.pressed(keycode);
+        }
     }
 }
