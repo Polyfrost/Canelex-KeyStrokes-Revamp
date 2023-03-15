@@ -131,10 +131,8 @@ public class GuiKey extends Gui {
             this.percentFaded = 1.0F;
     }
 
-    private boolean isKeyDown(int code) {
-        if (code < 0)
-            return Mouse.isButtonDown(code + 100);
-        return Keyboard.isKeyDown(code);
+    protected boolean isKeyDown(int code) {
+        return (code < 0) ? Mouse.isButtonDown(code + 100) : Keyboard.isKeyDown(code);
     }
 
     protected int getIntermediateColor(int a, int b, float percent) {
