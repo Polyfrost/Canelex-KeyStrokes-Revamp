@@ -119,11 +119,11 @@ public class KeystrokesElement extends Hud {
 
     @Override
     public float getHeight(float scale, boolean example) {
-        int height = 40;
+        int height = 39;
         if (mouseKeystrokes)
-            height += 20;
+            height += 19;
         if (jumpKeystrokes)
-            height += 12;
+            height += 11;
         return (height * scale);
     }
 
