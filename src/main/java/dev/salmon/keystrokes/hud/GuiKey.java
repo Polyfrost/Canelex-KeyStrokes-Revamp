@@ -35,20 +35,20 @@ public class GuiKey extends Gui {
     }
 
     public void drawKey(float x, float y, float scale) {
+        float finalX = x + relX * scale;
+        float finalY = y + relY * scale;
         x += this.relX;
         y += this.relY;
         if (KeystrokesConfig.keystrokesElement.rounded) {
-            float finalX = x;
-            float finalY = y;
-            NanoVGHelper.INSTANCE.setupAndDraw(true, vg -> NanoVGHelper.INSTANCE.drawRoundedRect(vg, finalX, finalY, width, height, getBackgroundColor(), KeystrokesConfig.keystrokesElement.cornerRadius));
+            NanoVGHelper.INSTANCE.setupAndDraw(true, vg -> NanoVGHelper.INSTANCE.drawRoundedRect(vg, finalX, finalY, width * scale, height * scale, getBackgroundColor(), KeystrokesConfig.keystrokesElement.cornerRadius * scale));
         } else {
             Platform.getGLPlatform().drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
         }
-        x += (this.width - this.fr.getStringWidth(getKeyName())) / 2;
-        y += (this.height - this.fr.FONT_HEIGHT) / 2 + 1;
+        x += (this.width - this.fr.getStringWidth(getKeyName()) + 1) / 2;
+        y += (this.height - this.fr.FONT_HEIGHT + 2) / 2;
 
         GlStateManager.enableBlend();
-        this.fr.drawString(getKeyName(), (x + 1), y, getTextColor(), KeystrokesConfig.keystrokesElement.shadow);
+        this.fr.drawString(getKeyName(), x, y, getTextColor(), KeystrokesConfig.keystrokesElement.shadow);
         GlStateManager.disableBlend();
     }
 
