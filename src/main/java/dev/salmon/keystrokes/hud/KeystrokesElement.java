@@ -121,9 +121,9 @@ public class KeystrokesElement extends Hud {
     public float getHeight(float scale, boolean example) {
         int height = 39;
         if (mouseKeystrokes)
-            height += 19;
+            height += 20;
         if (jumpKeystrokes)
-            height += 11;
+            height += 12;
         return (height * scale);
     }
 

@@ -12,22 +12,22 @@ public class GuiKeySpace extends GuiKey {
     }
 
     public void drawKey(float x, float y, float scale) {
+        float finalX = x + relX * scale;
+        float finalY = y + relY * scale;
         x += this.relX;
         y += this.relY;
         if (KeystrokesConfig.keystrokesElement.rounded) {
-            float finalX = x;
-            float finalY = y;
-            NanoVGHelper.INSTANCE.setupAndDraw(true, vg -> NanoVGHelper.INSTANCE.drawRoundedRect(vg, finalX, finalY, width, height, getBackgroundColor(), KeystrokesConfig.keystrokesElement.cornerRadius));
+            NanoVGHelper.INSTANCE.setupAndDraw(true, vg -> NanoVGHelper.INSTANCE.drawRoundedRect(vg, finalX, finalY, width * scale, height * scale, getBackgroundColor(), KeystrokesConfig.keystrokesElement.cornerRadius * scale));
         } else {
             Platform.getGLPlatform().drawRect(x, y, x + this.width, y + this.height, getBackgroundColor());
         }
         int color = getTextColor();
-        drawHorizontalLine(x + this.width / 2 - 6, x + this.width / 2 + 6, y + this.height / 2 - 1, color);
+        drawHorizontalLine(x + this.width / 2 - 6, x + this.width / 2 + 5, y + this.height / 2 - 1, color);
         if (KeystrokesConfig.keystrokesElement.shadow) {
             if ((color & 0xFC000000) == 0)
                 color |= 0xFF000000;
             color = (color & 0xFCFCFC) >> 2 | color & 0xFF000000;
-            drawHorizontalLine(x + this.width / 2 - 5, x + this.width / 2 + 7, y + this.height / 2, color);
+            drawHorizontalLine(x + this.width / 2 - 5, x + this.width / 2 + 6, y + this.height / 2, color);
         }
     }
 
